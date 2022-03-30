@@ -68,31 +68,31 @@ const Discussion = () => {
 
   // delete comment
   // way: 1
-  // const deleteHandler = () => {
-  //   axios
-  //     .delete(`http://localhost:3001/comments/${commentId}`)
-  //     .then(() => axios.get("http://localhost:3001/comments"))
-  //     .then((respons) => {
-  //       setComments(respons.data);
-  //       toast.success("your comment deleted");
-  //     })
-  //     .catch((error) => console.log(error));
-  //   setCommentId(null);
-  // };
-  // way: 2
-  const deleteHandler = async () => {
-    try {
-      await axios.delete(`http://localhost:3001/comments/${commentId}`);
-      const { data } = await axios.get("http://localhost:3001/comments");
-      setComments(data);
-      // success notification
-      toast.success("your comment deleted");
-      // clear commentId state
-      setCommentId(null);
-    } catch (error) {
-      console.log(error);
-    }
+  const deleteHandler = () => {
+    axios
+      .delete(`http://localhost:3001/comments/${commentId}`)
+      .then(() => axios.get("http://localhost:3001/comments"))
+      .then((respons) => {
+        setComments(respons.data);
+        toast.success("your comment deleted");
+      })
+      .catch((error) => console.log(error));
+    setCommentId(null);
   };
+  // way: 2
+  // const deleteHandler = async () => {
+  //   try {
+  //     await axios.delete(`http://localhost:3001/comments/${commentId}`);
+  //     const { data } = await axios.get("http://localhost:3001/comments");
+  //     setComments(data);
+  //     // success notification
+  //     toast.success("your comment deleted");
+  //     // clear commentId state
+  //     setCommentId(null);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // show comments
   const renderComments = () => {
