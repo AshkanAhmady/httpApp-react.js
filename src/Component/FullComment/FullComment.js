@@ -1,4 +1,4 @@
-import axios from "axios";
+import http from "../../Services/HttpServices";
 import { useEffect, useState } from "react";
 import styles from "./FullComment.module.css";
 
@@ -7,8 +7,8 @@ const FullComment = ({ commentId, deleteHandler, comments }) => {
 
   useEffect(() => {
     if (commentId) {
-      axios
-        .get(`http://localhost:3001/comments/${commentId}`)
+      http
+        .get(`/comments/${commentId}`)
         .then((response) => setComment(response.data))
         .catch((error) => console.log(error));
     } else {

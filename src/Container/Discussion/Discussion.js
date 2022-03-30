@@ -3,7 +3,7 @@ import Comment from "../../Component/Comment/Comment";
 import FullComment from "../../Component/FullComment/FullComment";
 import NewComment from "../../Component/NewComment/NewComment";
 import styles from "./Discussion.module.css";
-import axios from "axios";
+import http from "../../Services/HttpServices.js";
 import { toast } from "react-toastify";
 
 const Discussion = () => {
@@ -14,7 +14,7 @@ const Discussion = () => {
   // get data from db
   useEffect(() => {
     // روش اول
-    // axios
+    // http
     //   .get("https://jsonplaceholder.typicode.com/comments")
     //   .then((response) => setComments(response.data.slice(0, 4)))
     //   .catch((error) => console.log(error));
@@ -22,7 +22,7 @@ const Discussion = () => {
     // روش دوم
     const getComments = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/comments");
+        const response = await http.get("/comments");
         setComments(response.data);
       } catch (error) {
         setError(true);
@@ -39,12 +39,12 @@ const Discussion = () => {
   // create Comment
   // way: 1
   // const postCommentHandler = (comment) => {
-  //   axios
-  //     .post("http://localhost:3001/comments", {
+  //   http
+  //     .post("/comments", {
   //       ...comment,
   //       postId: 1,
   //     })
-  //     .then(() => axios.get("http://localhost:3001/comments"))
+  //     .then(() => http.get("/comments"))
   //     .then((respons) => {
   //       setComments(respons.data);
   //       toast.success("Your comment has been submitted");
@@ -54,11 +54,11 @@ const Discussion = () => {
   // way: 2
   const postCommentHandler = async (comment) => {
     try {
-      await axios.post("http://localhost:3001/comments", {
+      await http.post("/comments", {
         ...comment,
         postId: 1,
       });
-      const { data } = await axios.get("http://localhost:3001/comments");
+      const { data } = await http.get("/comments");
       setComments(data);
       toast.success("Your comment has been submitted");
     } catch (error) {
@@ -69,9 +69,9 @@ const Discussion = () => {
   // delete comment
   // way: 1
   const deleteHandler = () => {
-    axios
-      .delete(`http://localhost:3001/comments/${commentId}`)
-      .then(() => axios.get("http://localhost:3001/comments"))
+    http
+      .delete(`/comments/${commentId}`)
+      .then(() => http.get("/comments"))
       .then((respons) => {
         setComments(respons.data);
         toast.success("your comment deleted");
@@ -82,8 +82,8 @@ const Discussion = () => {
   // way: 2
   // const deleteHandler = async () => {
   //   try {
-  //     await axios.delete(`http://localhost:3001/comments/${commentId}`);
-  //     const { data } = await axios.get("http://localhost:3001/comments");
+  //     await http.delete(`/comments/${commentId}`);
+  //     const { data } = await http.get("/comments");
   //     setComments(data);
   //     // success notification
   //     toast.success("your comment deleted");
