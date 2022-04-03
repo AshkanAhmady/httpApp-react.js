@@ -3,8 +3,12 @@ import Comment from "../../Component/Comment/Comment";
 import FullComment from "../../Component/FullComment/FullComment";
 import NewComment from "../../Component/NewComment/NewComment";
 import styles from "./Discussion.module.css";
-import http from "../../Services/HttpServices.js";
 import { toast } from "react-toastify";
+import {
+  getAllCommentsWithAxios,
+  deleteCommentWithAxios,
+  AddCommentsWithAxios,
+} from "../../Services/APIFetchFunctions";
 
 const Discussion = () => {
   const [comments, setComments] = useState(null);
@@ -22,7 +26,7 @@ const Discussion = () => {
     // روش دوم
     const getComments = async () => {
       try {
-        const response = await http.get("/comments");
+        const response = await getAllCommentsWithAxios();
         setComments(response.data);
       } catch (error) {
         setError(true);
@@ -54,11 +58,12 @@ const Discussion = () => {
   // way: 2
   const postCommentHandler = async (comment) => {
     try {
-      await http.post("/comments", {
+      await AddCommentsWithAxios({
         ...comment,
         postId: 1,
       });
-      const { data } = await http.get("/comments");
+
+      const { data } = await getAllCommentsWithAxios();
       setComments(data);
       toast.success("Your comment has been submitted");
     } catch (error) {
@@ -69,9 +74,8 @@ const Discussion = () => {
   // delete comment
   // way: 1
   const deleteHandler = () => {
-    http
-      .delete(`/comments/${commentId}`)
-      .then(() => http.get("/comments"))
+    deleteCommentWithAxios(commentId)
+      .then(() => getAllCommentsWithAxios())
       .then((respons) => {
         setComments(respons.data);
         toast.success("your comment deleted");
@@ -121,7 +125,13 @@ const Discussion = () => {
 
   return (
     <main>
-      <section className={styles.commentSBox}>{renderComments()}</section>
+      <section
+        className={
+          comments != null && comments.length > 0 ? styles.commentSBox : ""
+        }
+      >
+        {renderComments()}
+      </section>
       <section>
         <FullComment
           comments={comments}

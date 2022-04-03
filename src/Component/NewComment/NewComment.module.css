@@ -4,12 +4,11 @@ form.newComment {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 250px;
-  background-color: #155e75;
-  color: #fff;
+  height: 230px;
+  background-color: #215c58;
+  color: #bef264;
   border-radius: 5px;
   padding: 10px;
-  margin-top: 50px;
 }
 
 form.newComment div {
@@ -22,9 +21,9 @@ form.newComment div textarea {
   padding: 5px;
   margin-bottom: 10px;
   border: none;
-  background-color: transparent;
-  color: #fff;
-  border-bottom: 2px solid #fff;
+  background: transparent !important;
+  color: #bef264;
+  border-bottom: 2px solid #bef264;
   outline: none;
 }
 
@@ -40,14 +39,14 @@ form.newComment div textarea {
 
 form.newComment div input::placeholder,
 form.newComment div textarea::placeholder {
-  color: #fff;
+  color: #bef264;
 }
 
 form.newComment button {
   width: 100%;
   border: none;
-  background-color: #d946ef;
-  color: #fff;
+  background-color: #bef264;
+  color: #134e4a;
   cursor: pointer;
   border-radius: 5px;
   padding: 10px;

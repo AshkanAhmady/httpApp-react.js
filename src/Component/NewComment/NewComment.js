@@ -15,12 +15,20 @@ const NewComment = ({ postCommentHandler }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     postCommentHandler(comment);
+
+    setComment({
+      name: "",
+      email: "",
+      body: "",
+    });
   };
 
   return (
     <form onSubmit={submitHandler} className={styles.newComment}>
       <div>
         <input
+          required
+          value={comment.name}
           onChange={changeHandler}
           name="name"
           placeholder="Name"
@@ -29,6 +37,8 @@ const NewComment = ({ postCommentHandler }) => {
       </div>
       <div>
         <input
+          required
+          value={comment.email}
           onChange={changeHandler}
           name="email"
           placeholder="Email"
@@ -37,6 +47,8 @@ const NewComment = ({ postCommentHandler }) => {
       </div>
       <div>
         <textarea
+          required
+          value={comment.body}
           onChange={changeHandler}
           name="body"
           placeholder="Body"

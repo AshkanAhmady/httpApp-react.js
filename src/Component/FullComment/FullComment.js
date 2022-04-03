@@ -1,14 +1,14 @@
 import http from "../../Services/HttpServices";
 import { useEffect, useState } from "react";
 import styles from "./FullComment.module.css";
+import { getSingleCommentsWithAxios } from "../../Services/APIFetchFunctions";
 
 const FullComment = ({ commentId, deleteHandler, comments }) => {
   const [comment, setComment] = useState(null);
 
   useEffect(() => {
     if (commentId) {
-      http
-        .get(`/comments/${commentId}`)
+      getSingleCommentsWithAxios(commentId)
         .then((response) => setComment(response.data))
         .catch((error) => console.log(error));
     } else {
@@ -17,11 +17,12 @@ const FullComment = ({ commentId, deleteHandler, comments }) => {
   }, [commentId]);
 
   const inline = {
-    color: "#fff",
-    background: "blueViolet",
+    backgroundColor: "#eee",
+    color: "#134e4a",
     margin: "10px",
     padding: "10px",
     borderRadius: "5px",
+    userSelect: "none",
   };
 
   const renderFullComment = () => {
@@ -41,13 +42,15 @@ const FullComment = ({ commentId, deleteHandler, comments }) => {
       commentDetail = (
         <div className={styles.comment}>
           <div>
-            name: <span>{comment.name}</span>
-          </div>
-          <div>
-            email: <span>{comment.email}</span>
-          </div>
-          <div>
-            body: <span>{comment.body}</span>
+            <div>
+              name: <span>{comment.name}</span>
+            </div>
+            <div>
+              email: <span>{comment.email}</span>
+            </div>
+            <div>
+              body: <span>{comment.body}</span>
+            </div>
           </div>
           <button onClick={deleteHandler}>Delete</button>
         </div>
