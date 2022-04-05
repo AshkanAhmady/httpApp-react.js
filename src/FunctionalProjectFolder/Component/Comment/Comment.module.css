@@ -1,0 +1,19 @@
+.comment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #134e4a;
+  color: #bef264;
+  padding: 10px;
+  border-radius: 5px;
+  width: 200px;
+  height: 140px;
+  cursor: pointer;
+  text-align: center;
+  margin: 5px;
+}
+
+.comment span {
+  margin: 5px 0;
+}

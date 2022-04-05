@@ -1,7 +1,6 @@
-import http from "../../Services/HttpServices";
 import { useEffect, useState } from "react";
 import styles from "./FullComment.module.css";
-import { getSingleCommentsWithAxios } from "../../Services/APIFetchFunctions";
+import { getSingleCommentsWithAxios } from "../../../Services/APIFetchFunctions";
 
 const FullComment = ({ commentId, deleteHandler, comments }) => {
   const [comment, setComment] = useState(null);

@@ -8,7 +8,7 @@ import {
   getAllCommentsWithAxios,
   deleteCommentWithAxios,
   AddCommentsWithAxios,
-} from "../../Services/APIFetchFunctions";
+} from "../../../Services/APIFetchFunctions";
 
 const Discussion = () => {
   const [comments, setComments] = useState(null);
