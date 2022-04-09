@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import styles from "./FullComment.module.css";
-import { getSingleCommentsWithAxios } from "../../../Services/APIFetchFunctions";
+import {
+  getSingleCommentsWithAxios,
+  deleteCommentWithAxios,
+} from "../../Services/APIFetchFunctions";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
-const FullComment = ({ commentId, deleteHandler, comments }) => {
+const FullComment = ({ match, history }) => {
+  const commentId = match.params.id;
+
   const [comment, setComment] = useState(null);
 
   useEffect(() => {
@@ -15,22 +22,34 @@ const FullComment = ({ commentId, deleteHandler, comments }) => {
     }
   }, [commentId]);
 
-  const inline = {
-    backgroundColor: "#eee",
-    color: "#134e4a",
-    margin: "10px",
-    padding: "10px",
-    borderRadius: "5px",
-    userSelect: "none",
+  // delete comment
+  // way: 1
+  const deleteHandler = () => {
+    deleteCommentWithAxios(commentId)
+      .then(() => {
+        setComment(null);
+        history.push("/");
+        toast.success("your comment deleted");
+      })
+      .catch((error) => console.log(error));
   };
+  // way: 2
+  // const deleteHandler = async () => {
+  //   try {
+  //     await http.delete(`/comments/${commentId}`);
+  //     const { data } = await http.get("/comments");
+  //     setComments(data);
+  //     // success notification
+  //     toast.success("your comment deleted");
+  //     // clear commentId state
+  //     setCommentId(null);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const renderFullComment = () => {
-    // زمانی که روی کامنت کلیک نکرده ایم
-    // اینو نشون بده
-    let commentDetail = <p style={inline}>please select a comment</p>;
-
-    if (comments != null && comments.length == 0)
-      commentDetail = <p>No comments have been posted</p>;
+    let commentDetail;
 
     // اگر روی کامنت کلیک کردیم
     // این لودینگ نمایش داده بشه تا زمانی که اطلاعات از دیتابیس گرفته شد
@@ -58,7 +77,12 @@ const FullComment = ({ commentId, deleteHandler, comments }) => {
     return commentDetail;
   };
 
-  return <div>{renderFullComment()}</div>;
+  return (
+    <div className={styles.fullCommentBox}>
+      {renderFullComment()}
+      <Link to="/">go to home page</Link>
+    </div>
+  );
 };
 
 export default FullComment;

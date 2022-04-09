@@ -3,7 +3,7 @@ form.newComment {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 600px;
   height: 230px;
   background-color: #215c58;
   color: #bef264;

@@ -1,7 +1,9 @@
 import { useState } from "react";
 import styles from "./NewComment.module.css";
+import { AddCommentsWithAxios } from "../../Services/APIFetchFunctions";
+import { toast } from "react-toastify";
 
-const NewComment = ({ postCommentHandler }) => {
+const NewComment = ({ history }) => {
   const [comment, setComment] = useState({
     name: "",
     email: "",
@@ -21,6 +23,35 @@ const NewComment = ({ postCommentHandler }) => {
       email: "",
       body: "",
     });
+  };
+
+  // create Comment
+  // way: 1
+  // const postCommentHandler = (comment) => {
+  //   http
+  //     .post("/comments", {
+  //       ...comment,
+  //       postId: 1,
+  //     })
+  //     .then(() => http.get("/comments"))
+  //     .then((respons) => {
+  //       setComments(respons.data);
+  //       toast.success("Your comment has been submitted");
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+  // way: 2
+  const postCommentHandler = async (comment) => {
+    try {
+      await AddCommentsWithAxios({
+        ...comment,
+        postId: 1,
+      });
+      history.push("/");
+      toast.success("Your comment has been submitted");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
