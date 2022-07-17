@@ -4,10 +4,11 @@ import Styles from "./CommentsList.module.css";
 import { toast } from "react-toastify";
 import { getAllCommentsWithAxios } from "../../../Services/APIFetchFunctions";
 import { Link } from "react-router-dom";
+import { CommentInterface } from "../../../Interfaces";
 
 const Discussion = () => {
-  const [comments, setComments] = useState(null);
-  const [error, setError] = useState(false);
+  const [comments, setComments] = useState<CommentInterface[]>([]);
+  const [error, setError] = useState<boolean>(false);
 
   // get data from db
   useEffect(() => {
@@ -31,18 +32,18 @@ const Discussion = () => {
 
   // show comments
   const renderComments = () => {
-    let renderValue = <p>loading ...</p>;
+    let renderValue: any = <p>loading ...</p>;
 
     if (error) {
       renderValue = "";
       toast.error("Fetching data get error !");
     }
 
-    if (comments && !error) {
+    if (comments.length > 0 && !error) {
       renderValue = comments.map((comment) => {
         return (
           <Link to={`/comment/${comment.id}`} key={comment.id}>
-            <Comment name={comment.name} email={comment.email} />
+            <Comment comment={comment} />
           </Link>
         );
       });

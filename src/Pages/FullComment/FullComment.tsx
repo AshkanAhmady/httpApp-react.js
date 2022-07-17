@@ -6,11 +6,12 @@ import {
 } from "../../Services/APIFetchFunctions";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { CommentInterface } from "../../Interfaces";
 
-const FullComment = ({ match, history }) => {
+const FullComment:React.FC<any> = ({ match, history }) => {
   const commentId = match.params.id;
 
-  const [comment, setComment] = useState(null);
+  const [comment, setComment] = useState<CommentInterface | null>(null);
 
   useEffect(() => {
     if (commentId) {

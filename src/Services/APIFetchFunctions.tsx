@@ -1,12 +1,13 @@
+import { CommentInterface } from "../Interfaces";
 import http from "./HttpServices";
 
 // new comment
-export function AddCommentsWithAxios(data) {
+export function AddCommentsWithAxios(data: CommentInterface) {
   return http.post("/comments", data);
 }
 
 // delete comment
-export function deleteCommentWithAxios(commentId) {
+export function deleteCommentWithAxios(commentId: number) {
   return http.delete(`/comments/${commentId}`);
 }
 
@@ -16,6 +17,6 @@ export function getAllCommentsWithAxios() {
 }
 
 // get single comment
-export function getSingleCommentsWithAxios(commentId) {
+export function getSingleCommentsWithAxios(commentId: number) {
   return http.get(`/comments/${commentId}`);
 }

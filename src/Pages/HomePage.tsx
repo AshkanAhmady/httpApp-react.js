@@ -1,6 +1,6 @@
 import CommentsList from "../FunctionalProjectFolder/Component/CommentsList/CommentsList";
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   return <CommentsList />;
 };
 

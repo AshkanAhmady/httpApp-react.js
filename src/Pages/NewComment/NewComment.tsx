@@ -1,20 +1,21 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styles from "./NewComment.module.css";
 import { AddCommentsWithAxios } from "../../Services/APIFetchFunctions";
 import { toast } from "react-toastify";
+import { CommentInterface } from "../../Interfaces";
 
-const NewComment = ({ history }) => {
-  const [comment, setComment] = useState({
+const NewComment:React.FC<any> = ({ history }) => {
+  const [comment, setComment] = useState<CommentInterface>({
     name: "",
     email: "",
     body: "",
   });
 
-  const changeHandler = (e) => {
-    setComment({ ...comment, [e.target.name]: e.target.value });
+  const changeHandler = (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setComment({ ...comment, [e.currentTarget.name]: e.currentTarget.value });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     postCommentHandler(comment);
 
@@ -41,7 +42,7 @@ const NewComment = ({ history }) => {
   //     .catch((error) => console.log(error));
   // };
   // way: 2
-  const postCommentHandler = async (comment) => {
+  const postCommentHandler = async (comment: CommentInterface) => {
     try {
       await AddCommentsWithAxios({
         ...comment,
